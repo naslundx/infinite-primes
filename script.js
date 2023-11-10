@@ -25,19 +25,23 @@ const throttle = (callback, time) => {
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 // Mathematical
+const allPrimes = new Set([2, 3, 5, 7, 11, 13, 17]);
 const isPrime = number => {
     if (number < 2) return false;
-    if (number === 2 || number === 3) return true;
+    if (allPrimes.has(number)) return true;
     if (number % 2 === 0) return false;
 
-    for (let d = 5; d <= Math.floor(Math.sqrt(number)); d += 2) {
-        if (number % d === 0) {
+    allPrimes.forEach(prime => {
+        if (number % prime === 0) {
             return false;
         }
-    }
+    });
 
+    allPrimes.add(number);
     return true;
 }
+
+const isSexyPrime = number => allPrimes.has(number) && allPrimes.has(number - 6);
 
 // Website
 const createCard = (index, prime = false) => {
@@ -45,6 +49,10 @@ const createCard = (index, prime = false) => {
   card.innerHTML = `<p>${index}</p>`;
   card.className = prime ? "card prime" : "card composite";
   cardContainer.appendChild(card);
+
+  if (isSexyPrime(index)) {
+    card.innerHTML += '<i class="sexy fa fa-heart"></i>';
+  }
 };
 
 var creatingCards = false;

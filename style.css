@@ -60,6 +60,10 @@ a:hover {
     background-color: lightsteelblue;
 }
 
+i.sexy {
+    font-size: medium;
+}
+
 @keyframes load {
     100% {
         transform: translateX(100%);
