@@ -42,7 +42,7 @@ const isPrime = number => {
 // Website
 const createCard = (index, prime = false) => {
   const card = document.createElement("div");
-  card.innerText = index;
+  card.innerHTML = `<p>${index}</p>`;
   card.className = prime ? "card prime" : "card composite";
   cardContainer.appendChild(card);
 };

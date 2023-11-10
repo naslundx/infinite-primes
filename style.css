@@ -47,9 +47,9 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 25vh;
+    font-size: min(40vh, 20vw);
     font-weight: bold;
-    border: 1px solid black;
+    border-bottom: 1px solid black;
 }
 
 .card.prime {
