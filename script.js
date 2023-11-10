@@ -76,7 +76,10 @@ const handleInfiniteScroll = () => {
   }, 10);
 };
 
-window.onload = () => createCards(10);
+window.onload = () => {
+    UIshowComposites.checked = localStorage.getItem("showComposites") === "true";
+    createCards(10);
+}
 window.addEventListener("scroll", handleInfiniteScroll);
 
 // Preferences
@@ -88,5 +91,3 @@ settingsIcon.addEventListener("click", () => {
   settingsIcon.classList.add('hide');
   settingsContent.classList.remove('hide');
 });
-
-
