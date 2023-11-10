@@ -31,11 +31,12 @@ const isPrime = number => {
     if (allPrimes.has(number)) return true;
     if (number % 2 === 0) return false;
 
-    allPrimes.forEach(prime => {
+    for (prime of allPrimes) {
         if (number % prime === 0) {
+            console.log(`${number} is divisible by ${prime}`);
             return false;
         }
-    });
+    };
 
     allPrimes.add(number);
     return true;
@@ -51,7 +52,7 @@ const createCard = (index, prime = false) => {
   cardContainer.appendChild(card);
 
   if (isSexyPrime(index)) {
-    card.innerHTML += '<i class="sexy fa fa-heart"></i>';
+    card.innerHTML = '<i class="sexy fa fa-heart"></i>' + card.innerHTML;
   }
 };
 
@@ -86,7 +87,7 @@ const handleInfiniteScroll = () => {
 
 window.onload = () => {
     UIshowComposites.checked = localStorage.getItem("showComposites") === "true";
-    createCards(10);
+    createCards(1000);
 }
 window.addEventListener("scroll", handleInfiniteScroll);
 
