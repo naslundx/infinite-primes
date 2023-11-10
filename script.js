@@ -1,6 +1,5 @@
 // UI
 const cardContainer = document.getElementById("card-container");
-const loader = document.getElementById("loader");
 const settingsIcon = document.getElementById("settings-icon");
 const settingsContent = document.getElementById("settings-content");
 const UIshowComposites = document.getElementById("show-composites");
