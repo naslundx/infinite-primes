@@ -6,9 +6,6 @@ const settingsContent = document.getElementById("settings-content");
 const UIshowComposites = document.getElementById("show-composites");
 
 // Settings
-if (localStorage.hasOwnProperty("showComposites")) {
-    localStorage.setItem("showComposites", "false");
-}
 let cardIndex = 1;
 
 // Helpers
