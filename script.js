@@ -4,6 +4,7 @@ const loader = document.getElementById("loader");
 const settingsIcon = document.getElementById("settings-icon");
 const settingsContent = document.getElementById("settings-content");
 const UIshowComposites = document.getElementById("show-composites");
+const UIsettingsSave = document.getElementById("settings-save");
 
 // Settings
 let cardIndex = 1;
@@ -83,9 +84,10 @@ window.onload = () => {
 window.addEventListener("scroll", handleInfiniteScroll);
 
 // Preferences
-UIshowComposites.addEventListener("change", event => {
-  localStorage.setItem("showComposites", event.target.checked.toString());
-});
+UIsettingsSave.addEventListener("click", () => {
+    localStorage.setItem("showComposites", UIshowComposites.checked);
+    window.location.reload();
+})
 
 settingsIcon.addEventListener("click", () => {
   settingsIcon.classList.add('hide');
