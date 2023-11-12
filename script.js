@@ -59,7 +59,10 @@ const isFibonacci = number => {
   return false;
 }
 
-const isSexyPrime = number => allPrimes.has(number) && allPrimes.has(number - 6);
+const isSexyPrime = number => allPrimes.has(number) &&
+  !allPrimes.has(number - 2) &&
+  !allPrimes.has(number - 4) &&
+  allPrimes.has(number - 6);
 
 // Website
 const createCard = (index, prime = false) => {
