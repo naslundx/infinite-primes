@@ -3,10 +3,16 @@ const cardContainer = document.getElementById("card-container");
 const settingsIcon = document.getElementById("settings-icon");
 const settingsContent = document.getElementById("settings-content");
 const UIshowComposites = document.getElementById("show-composites");
+const UIshowSexy = document.getElementById("show-sexy");
+const UIshowFibonacci = document.getElementById("show-fibonacci");
 const UIsettingsSave = document.getElementById("settings-save");
 
 // Settings
 let cardIndex = 1;
+let settingsWindowOpen = false;
+const showComposites = localStorage.getItem("showComposites") === "true";
+const showSexy = localStorage.getItem("showSexy") === "true";
+const showFibonacci = localStorage.getItem("showFibonacci") === "true";
 
 // Helpers
 var throttleRunner = false;
@@ -42,18 +48,40 @@ const isPrime = number => {
     return true;
 }
 
+const allFibonacci = [1, 2, 3, 5, 8, 13];
+const isFibonacci = number => {
+  if (allFibonacci.includes(number)) return true;
+  if (number > allFibonacci[allFibonacci.length - 1]) {
+    const nextNumber = allFibonacci[allFibonacci.length - 1] + allFibonacci[allFibonacci.length - 2]
+    allFibonacci.push(nextNumber);
+    return number === nextNumber;
+  }
+  return false;
+}
+
 const isSexyPrime = number => allPrimes.has(number) && allPrimes.has(number - 6);
 
 // Website
 const createCard = (index, prime = false) => {
   const card = document.createElement("div");
-  card.innerHTML = `<p>${index}</p>`;
+  card.innerHTML = `
+    <div class="col-number">
+      <p>${index}</p>
+    </div>
+    <div class="col-details">
+    <p class="sexy"><i class="fa fa-heart"></i> Sexy prime</p>
+    <p class="fibonacci"><i class="fa fa-flask"></i> Fibonacci</p>
+    </div>`;
   card.className = prime ? "card prime" : "card composite";
-  cardContainer.appendChild(card);
-
-  if (isSexyPrime(index)) {
-    card.innerHTML = '<i class="sexy fa fa-heart"></i>' + card.innerHTML;
+  
+  if (showSexy && isSexyPrime(index)) {
+    card.classList.add('sexy');
   }
+  if (showFibonacci && isFibonacci(index)) {
+    card.classList.add('fibonacci');
+  }
+
+  cardContainer.appendChild(card);
 };
 
 var creatingCards = false;
@@ -61,7 +89,6 @@ const createCards = async (numberToCreate) => {
   if (creatingCards) {
     return;
   }
-  const showComposites = localStorage.getItem("showComposites") === "true";
   creatingCards = true;
   while (numberToCreate > 0) {
     const prime = isPrime(cardIndex);
@@ -86,18 +113,31 @@ const handleInfiniteScroll = () => {
 };
 
 window.onload = () => {
-    UIshowComposites.checked = localStorage.getItem("showComposites") === "true";
-    createCards(1000);
+  UIshowComposites.checked = showComposites;
+  UIshowFibonacci.checked = showFibonacci;
+    createCards(10);
 }
 window.addEventListener("scroll", handleInfiniteScroll);
 
 // Preferences
+document.querySelector('#card-container').addEventListener("click", () => {
+  if (settingsWindowOpen) {
+    settingsIcon.classList.remove('hide');
+    settingsContent.classList.add('hide');
+  }
+  console.log('clicked');
+});
+
 UIsettingsSave.addEventListener("click", () => {
-    localStorage.setItem("showComposites", UIshowComposites.checked);
-    window.location.reload();
+  localStorage.setItem("showComposites", UIshowComposites.checked);
+  localStorage.setItem("showSexy", UIshowSexy.checked);
+  localStorage.setItem("showFibonacci", UIshowFibonacci.checked);
+  window.location.reload();
 })
 
-settingsIcon.addEventListener("click", () => {
+settingsIcon.addEventListener("click", event => {
   settingsIcon.classList.add('hide');
   settingsContent.classList.remove('hide');
+  settingsWindowOpen = true;
+  event.stopPropagation();
 });
