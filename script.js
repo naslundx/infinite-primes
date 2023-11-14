@@ -148,13 +148,18 @@ const createCard = (index, data) => {
 };
 
 var creatingCards = false;
+let attempts;
+let strikes;
 const createCards = async (numberToCreate) => {
   if (creatingCards) {
     return;
   }
   creatingCards = true;
+  attempts = 0;
+  strikes = 0;
 
-  while (numberToCreate > 0) {
+  while (numberToCreate > 0 && strikes < 5) {
+    attempts += 1;
     let create = false;
 
     const prime = isPrime(latestNumber);
@@ -182,13 +187,17 @@ const createCards = async (numberToCreate) => {
     console.log(latestNumber, create, data);
 
     if (create) {
-        createCard(latestNumber, data);
-        numberToCreate -= 1;
-        await sleep(1);
+      attempts = 1;
+      createCard(latestNumber, data);
+      numberToCreate -= 1;
+      await sleep(1);
+    } else if (latestNumber > 100000 && attempts / latestNumber > 0.2) {
+      strikes += 1;
+      attempts = 1;
+      await sleep(1000);
     }
 
     latestNumber += 1;
-    numberToCreate -= 1;
   }
   creatingCards = false;
 };
