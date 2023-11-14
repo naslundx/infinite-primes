@@ -71,7 +71,9 @@ const throttle = (callback, time) => {
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 // Mathematical
-const allPrimes = new Set([2, 3, 5, 7, 11, 13, 17]);
+const allPrimes = new Set([
+  2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97,
+]);
 const isPrime = number => {
     if (number < 2) return false;
     if (allPrimes.has(number)) return true;
@@ -87,11 +89,12 @@ const isPrime = number => {
     return true;
 }
 
-const allFibonacci = [1, 2, 3, 5, 8, 13];
+const allFibonacci = [1, 2, 3, 5, 8, 13, 21, 34, 55, 89];
 const isFibonacci = number => {
   if (allFibonacci.includes(number)) return true;
   if (number > allFibonacci[allFibonacci.length - 1]) {
     const nextNumber = allFibonacci[allFibonacci.length - 1] + allFibonacci[allFibonacci.length - 2]
+    allFibonacci = allFibonacci.slice(-2);
     allFibonacci.push(nextNumber);
     return number === nextNumber;
   }
