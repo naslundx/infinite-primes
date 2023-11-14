@@ -53,21 +53,18 @@ a:hover {
     background: linear-gradient(to right, #bdc3c7, #2c3e50);
 }
 
-@media only screen and (max-width : 768px) {
+@media only screen and (max-width: 768px) {
     .card {
         flex-direction: column;
-    }
-    .card .col-details {
-        
     }
 }
 
 .card.prime {
-    background: linear-gradient(to right, #636363, #a2ab58);
+    background: linear-gradient(to right, #79a060, #b2bd5d);
 }
 
 .card.composite {
-    background: linear-gradient(to right, #a2ab58, #636363);
+    background: linear-gradient(to right, #b2bd5d, #79a060);
 }
 
 .card.mark-prime p.prime,
