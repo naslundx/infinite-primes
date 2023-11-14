@@ -13,11 +13,48 @@
     <div id="settings-content" class="hide">
         <p>Infinite and scrollable primes by <a href="https://www.linkedin.com/in/naslundx/">Marcus Näslund</a></p>
         <div class="settings-checkboxes">
-            <div><input type="checkbox" id="show-primes" checked="true"><label for="show-primes">Show primes</label></div>
-            <div><input type="checkbox" id="show-composites"><label for="show-composites">Show composites</label></div>
-            <div><input type="checkbox" id="show-factorisation"><label for="show-factorisation">Show factorisation</label></div>
-            <div><input type="checkbox" id="show-sexy"><label for="mark-sexy-primes">Mark sexy primes</label></div>
-            <div><input type="checkbox" id="show-fibonacci"><label for="show-fibonacci">Show Fibonacci numbers</label></div>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Primes</td>
+                        <td><input type="radio" name="primes" id="show-primes" checked="true"><label for="show-primes">Show</label></td>
+                        <td><input type="radio" name="primes" id="mark-primes"><label for="mark-primes">Mark</label></td>
+                        <td><input type="radio" name="primes" id="hide-primes"><label for="hide-primes">Hide</label></td>
+                    </tr>
+                    <tr>
+                        <td>Composites</td>
+                        <td><input type="radio" name="composites" id="show-composites"><label for="show-composites">Show</label></td>
+                        <td><input type="radio" name="composites" id="mark-composites"><label for="mark-composites">Mark</label></td>
+                        <td><input type="radio" name="composites" id="hide-composites"><label for="hide-composites">Hide</label></td>
+                    </tr>
+                    <tr>
+                        <td>Fibonacci</td>
+                        <td><input type="radio" name="fibonacci" id="show-fibonacci"><label for="show-fibonacci">Show</label></td>
+                        <td><input type="radio" name="fibonacci" id="mark-fibonacci"><label for="mark-fibonacci">Mark</label></td>
+                        <td><input type="radio" name="fibonacci" id="hide-fibonacci"><label for="hide-fibonacci">Hide</label></td>
+                    </tr>
+                    <tr>
+                        <td>Sexy primes</td>
+                        <td><input type="radio" name="sexy" id="show-sexy"><label for="show-sexy">Show</label></td>
+                        <td><input type="radio" name="sexy" id="mark-sexy"><label for="mark-sexy">Mark</label></td>
+                        <td><input type="radio" name="sexy" id="hide-sexy"><label for="hide-sexy">Hide</label></td>
+                    </tr>
+                    <tr>
+                        <td>Even numbers</td>
+                        <td><input type="radio" name="even" id="show-even"><label for="show-even">Show</label></td>
+                        <td><input type="radio" name="even" id="mark-even"><label for="mark-even">Mark</label></td>
+                        <td><input type="radio" name="even" id="hide-even"><label for="hide-even">Hide</label></td>
+                    </tr>
+                    <tr>
+                        <td>Odd numbers</td>
+                        <td><input type="radio" name="odd" id="show-odd"><label for="show-odd">Show</label></td>
+                        <td><input type="radio" name="odd" id="mark-odd"><label for="mark-odd">Mark</label></td>
+                        <td><input type="radio" name="odd" id="hide-odd"><label for="hide-odd">Hide</label></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- odd/even -->
+            <!-- <div><input type="checkbox" id="show-factorisation"><label for="show-factorisation">Show factorisation</label></div> -->
         </div>
         <div class="settings-buttons">
             <button id="settings-save"><i class="fa fa-save"></i> Save</button>

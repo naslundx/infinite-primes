@@ -60,16 +60,18 @@ a:hover {
     background-color: lightsteelblue;
 }
 
-.card.sexy p.sexy,
-.card.fibonacci p.fibonacci {
+.card.mark-prime p.prime,
+.card.mark-composite p.composite,
+.card.mark-even p.even,
+.card.mark-odd p.odd,
+.card.mark-sexy p.sexy,
+.card.mark-fibonacci p.fibonacci {
     display: block;
 }
-
 
 .col-details p {
     display: none;
     margin: 10px;
-
 }
 
 .col-details {
