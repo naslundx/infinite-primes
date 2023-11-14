@@ -50,14 +50,15 @@ a:hover {
     font-size: min(40vh, 20vw);
     font-weight: bold;
     border-bottom: 1px solid black;
+    background: linear-gradient(to right, #bdc3c7, #2c3e50);
 }
 
 .card.prime {
-    background-color:lightgreen;
+    background: linear-gradient(to right, #636363, #a2ab58);
 }
 
 .card.composite {
-    background-color: lightsteelblue;
+    background: linear-gradient(to right, #a2ab58, #636363);
 }
 
 .card.mark-prime p.prime,

@@ -49,8 +49,8 @@ const defaultSettings = {
   'composites': 'hide',
   'sexy': 'mark',
   'fibonacci': 'mark',
-  'odd': 'show',
-  'even': 'show',
+  'odd': 'mark',
+  'even': 'mark',
 };
 const currentSettings = {};
 
@@ -108,6 +108,8 @@ const createCard = (index, data) => {
       <p>${index}</p>
     </div>
     <div class="col-details">
+      <p class="prime"><i class="fa fa-cube"></i> Prime</p>
+      <p class="composite"><i class="fa fa-cubes"></i> Composite</p>
       <p class="even"><i class="fa fa-calendar-plus-o"></i> Even</p>
       <p class="odd"><i class="fa fa-calendar-minus-o"></i> Odd</p>
       <p class="sexy"><i class="fa fa-heart"></i> Sexy prime</p>
@@ -123,22 +125,22 @@ const createCard = (index, data) => {
     card.classList.add('composite');
   }
   
-  if (currentSettings['primes'] === 'mark' && data.prime) {
+  if (currentSettings['primes'] !== 'hide' && data.prime) {
     card.classList.add('mark-prime');
   }
-  if (currentSettings['composites'] === 'mark' && data.composite) {
+  if (currentSettings['composites'] !== 'hide' && data.composite) {
     card.classList.add('mark-composite');
   }
-  if (currentSettings['sexy'] === 'mark' && data.sexy) {
+  if (currentSettings['sexy'] !== 'hide' && data.sexy) {
     card.classList.add('mark-sexy');
   }
-  if (currentSettings['fibonacci'] === 'mark' && data.fibonacci) {
+  if (currentSettings['fibonacci'] !== 'hide' && data.fibonacci) {
     card.classList.add('mark-fibonacci');
   }
-  if (currentSettings['even'] === 'mark' && data.even) {
+  if (currentSettings['even'] !== 'hide' && data.even) {
     card.classList.add('mark-even');
   }
-  if (currentSettings['odd'] === 'mark' && data.odd) {
+  if (currentSettings['odd'] !== 'hide' && data.odd) {
     card.classList.add('mark-odd');
   }
 
@@ -156,7 +158,7 @@ const createCards = async (numberToCreate) => {
     let create = false;
 
     const prime = isPrime(latestNumber);
-    const composite = !prime;
+    const composite = !prime && latestNumber >= 2;
     const sexy = prime && isSexyPrime(latestNumber);
     const fibonacci = isFibonacci(latestNumber);
     const even = latestNumber % 2 === 0;
@@ -177,7 +179,7 @@ const createCards = async (numberToCreate) => {
     if (currentSettings['odd'] === 'hide') create = create && !odd;
 
     data = { prime, composite, sexy, fibonacci, even, odd };
-    console.log(latestNumber, data)
+    console.log(latestNumber, create, data);
 
     if (create) {
         createCard(latestNumber, data);
@@ -206,10 +208,7 @@ window.onload = () => {
     setUISetting(setting, currentSettings[setting]);
   });
 
-  console.log(currentSettings);
-  
   createCards(10);
-
 }
 window.addEventListener("scroll", handleInfiniteScroll);
 
