@@ -2,6 +2,7 @@
 const cardContainer = document.getElementById("card-container");
 const settingsIcon = document.getElementById("settings-icon");
 const settingsContent = document.getElementById("settings-content");
+const UIsettingsCancel = document.getElementById("settings-cancel");
 const UIsettingsSave = document.getElementById("settings-save");
 
 // UI settings
@@ -12,6 +13,7 @@ const allSettings = [
   'fibonacci',
   'odd',
   'even',
+  'squares',
 ];
 
 const getUISetting = (name) => {
@@ -51,6 +53,7 @@ const defaultSettings = {
   'fibonacci': 'mark',
   'odd': 'mark',
   'even': 'mark',
+  'squares': 'mark',
 };
 const currentSettings = {};
 
@@ -89,7 +92,7 @@ const isPrime = number => {
     return true;
 }
 
-const allFibonacci = [1, 2, 3, 5, 8, 13, 21, 34, 55, 89];
+let allFibonacci = [1, 2, 3, 5, 8, 13, 21, 34, 55, 89];
 const isFibonacci = number => {
   if (allFibonacci.includes(number)) return true;
   if (number > allFibonacci[allFibonacci.length - 1]) {
@@ -103,6 +106,20 @@ const isFibonacci = number => {
 
 const isSexyPrime = number => allPrimes.has(number) && allPrimes.has(number - 6);
 
+const allSquares = new Set([1, 4, 9, 16, 25]);
+let latestSquare = 5;
+const isSquare = number => {
+  if (allSquares.has(number)) {
+    return true;
+  }
+  if (number > latestSquare * latestSquare) {
+    latestSquare += 1;
+    allSquares.add(latestSquare * latestSquare);
+    return isSquare(number);
+  }
+  return false;
+}
+
 // Website
 const createCard = (index, data) => {
   const card = document.createElement("div");
@@ -111,28 +128,29 @@ const createCard = (index, data) => {
       <p>${index}</p>
     </div>
     <div class="col-details">
-      <p class="prime"><i class="fa fa-cube"></i> Prime</p>
-      <p class="composite"><i class="fa fa-cubes"></i> Composite</p>
+      <p class="primes"><i class="fa fa-cube"></i> Prime</p>
+      <p class="composites"><i class="fa fa-cubes"></i> Composite</p>
       <p class="even"><i class="fa fa-calendar-plus-o"></i> Even</p>
       <p class="odd"><i class="fa fa-calendar-minus-o"></i> Odd</p>
       <p class="sexy"><i class="fa fa-heart"></i> Sexy prime</p>
       <p class="fibonacci"><i class="fa fa-flask"></i> Fibonacci</p>
+      <p class="squares"><i class="fa fa-stop"></i> Square</p>
     </div>`;
 
   card.className = 'card';
   
   if (currentSettings['primes'] ==='show' && data.prime) {
-    card.classList.add('prime');
+    card.classList.add('primes');
   }
   if (currentSettings['composites'] ==='show' && data.composite) {
-    card.classList.add('composite');
+    card.classList.add('composites');
   }
   
   if (currentSettings['primes'] !== 'hide' && data.prime) {
-    card.classList.add('mark-prime');
+    card.classList.add('mark-primes');
   }
   if (currentSettings['composites'] !== 'hide' && data.composite) {
-    card.classList.add('mark-composite');
+    card.classList.add('mark-composites');
   }
   if (currentSettings['sexy'] !== 'hide' && data.sexy) {
     card.classList.add('mark-sexy');
@@ -145,6 +163,9 @@ const createCard = (index, data) => {
   }
   if (currentSettings['odd'] !== 'hide' && data.odd) {
     card.classList.add('mark-odd');
+  }
+  if (currentSettings['squares'] !== 'hide' && data.square) {
+    card.classList.add('mark-squares');
   }
 
   cardContainer.appendChild(card);
@@ -171,6 +192,7 @@ const createCards = async (numberToCreate) => {
     const fibonacci = isFibonacci(latestNumber);
     const even = latestNumber % 2 === 0;
     const odd = !even;
+    const square = isSquare(latestNumber)
 
     if (currentSettings['primes'] === 'show') create = create || prime;
     if (currentSettings['composites'] === 'show') create = create || composite;
@@ -178,6 +200,7 @@ const createCards = async (numberToCreate) => {
     if (currentSettings['fibonacci'] === 'show') create = create || fibonacci;
     if (currentSettings['even'] === 'show') create = create || even;
     if (currentSettings['odd'] === 'show') create = create || odd;
+    if (currentSettings['squares'] === 'show') create = create || square;
 
     if (currentSettings['primes'] === 'hide') create = create && !prime;
     if (currentSettings['composites'] === 'hide') create = create && !composite;
@@ -185,8 +208,9 @@ const createCards = async (numberToCreate) => {
     if (currentSettings['fibonacci'] === 'hide') create = create && !fibonacci;
     if (currentSettings['even'] === 'hide') create = create && !even;
     if (currentSettings['odd'] === 'hide') create = create && !odd;
+    if (currentSettings['squares'] === 'hide') create = create && !square;
 
-    data = { prime, composite, sexy, fibonacci, even, odd };
+    data = { prime, composite, sexy, fibonacci, even, odd, square };
     console.log(latestNumber, create, data);
 
     if (create) {
@@ -225,17 +249,19 @@ window.onload = () => {
 window.addEventListener("scroll", handleInfiniteScroll);
 
 // Preferences
-document.querySelector('#card-container').addEventListener("click", () => {
+const closeSettingsWindow = () => {
   if (settingsWindowOpen) {
     settingsIcon.classList.remove('hide');
     settingsContent.classList.add('hide');
   }
-});
+}
+document.querySelector('#card-container').addEventListener("click", closeSettingsWindow);
+UIsettingsCancel.addEventListener("click", closeSettingsWindow);
 
 UIsettingsSave.addEventListener("click", () => {
   allSettings.forEach(setting => setLocalStorageSetting(setting, getUISetting(setting)));
   window.location.reload();
-})
+});
 
 settingsIcon.addEventListener("click", event => {
   settingsIcon.classList.add('hide');

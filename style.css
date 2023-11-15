@@ -57,22 +57,26 @@ a:hover {
     .card {
         flex-direction: column;
     }
+    .card .col-details {
+        margin-bottom: 10vh;
+    }
 }
 
-.card.prime {
+.card.primes {
     background: linear-gradient(to right, #79a060, #b2bd5d);
 }
 
-.card.composite {
+.card.composites {
     background: linear-gradient(to right, #b2bd5d, #79a060);
 }
 
-.card.mark-prime p.prime,
-.card.mark-composite p.composite,
+.card.mark-primes p.primes,
+.card.mark-composites p.composites,
 .card.mark-even p.even,
 .card.mark-odd p.odd,
 .card.mark-sexy p.sexy,
-.card.mark-fibonacci p.fibonacci {
+.card.mark-fibonacci p.fibonacci,
+.card.mark-squares p.squares {
     display: block;
 }
 
@@ -125,6 +129,7 @@ a:hover {
     opacity: 1;
     transition: all 1s;
     z-index: 1;
+    border-radius: 5px;
 }
 
 #settings-icon:hover {
@@ -142,5 +147,5 @@ a:hover {
     opacity: 1;
     transition: opacity 1s;
     z-index: 0;
-
+    border-radius: 5px;
 }
