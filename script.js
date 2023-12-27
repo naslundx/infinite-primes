@@ -104,7 +104,10 @@ const isFibonacci = number => {
   return false;
 }
 
-const isSexyPrime = number => allPrimes.has(number) && allPrimes.has(number - 6);
+const isSexyPrime = number => allPrimes.has(number) &&
+  !allPrimes.has(number - 2) &&
+  !allPrimes.has(number - 4) &&
+  allPrimes.has(number - 6);
 
 const allSquares = new Set([1, 4, 9, 16, 25]);
 let latestSquare = 5;
